@@ -4,20 +4,23 @@ A jQuery plugin to add balloon tips to elements User-friendly, fine-tunable and 
 
 Getting started
 ------------------------
-1. Download and load this plugin javascript file after jQuery.  
-	`<script src="js/jquery.balloon.js"></script>`
-2. Call $().balloon(options) in document ready event of jQuery.  
-	`$(function() {  
-	  $('_selectors_').**balloon**(_options_);  
-	});`
+(1) Download and load this plugin javascript file after jQuery.  
+
+    <script src="js/jquery.balloon.js"></script>
+
+(2) Call $().balloon(options) in document ready event of jQuery.  
+
+    $(function() {
+      $('selectors').balloon(options);
+    });
 
 Distinct features
 ------------------------
-+ Without css and images. <strong>Easy to apply</strong> to a website.
-+ Edge of balloon tip is placed on <strong>optimized position</strong>.
-+ Can be styled by both script and css.
-+ <strong>Light weight and Fast</strong> even if the page has many balloons.
-+ <strong>Any HTML and jQuery object</strong> as balloon tip contents.
++ Without css and images. **Easy to apply** to a website.
++ Edge of balloon tip is placed on **optimized position**.
++ Styled by both script and css.
++ **Light weight and Fast** even if the page has many balloons.
++ **Any HTML and jQuery object** as balloon tip contents.
 + User-friendly API.
 + Fine-tunable position, animations and some effects.
 + Advanced methods for power user.
