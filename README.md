@@ -25,3 +25,6 @@ Distinct features
 + Fine-tunable position, animations and some effects.
 + Advanced methods for power user.
 
+Copyright
+------------------------
+&copy; 2011 Urin
