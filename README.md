@@ -4,7 +4,7 @@ A jQuery plugin to add balloon tips to elements User-friendly, fine-tunable and 
 
 Demos
 ------------------------
-See [demos](file.urin.take-uma.net/jquery.balloon.js-Demo.html).
+See [demos](http://file.urin.take-uma.net/jquery.balloon.js-Demo.html).
 
 Getting started
 ------------------------
