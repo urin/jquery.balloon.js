@@ -5,10 +5,10 @@ A jQuery plugin to add balloon tips to elements User-friendly, fine-tunable and 
 Getting started
 ------------------------
 1. Download and load this plugin javascript file after jQuery.  
-	`<script type="text/javascript" src="js/jquery.balloon.js"></script>`
+	`<script src="js/jquery.balloon.js"></script>`
 2. Call $().balloon(options) in document ready event of jQuery.  
-	`$(function() {
-	  $('_selectors_').**balloon**(_options_);
+	`$(function() {  
+	  $('_selectors_').**balloon**(_options_);  
 	});`
 
 Distinct features
