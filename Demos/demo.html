@@ -5,11 +5,11 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title>jquery.balloon.js Demo page</title>
-    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+		<link rel="stylesheet" href="demo.css" type="text/css" />
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">google.load('jquery', '1')</script>
-		<script type="text/javascript" src="//raw.github.com/urin/jquery.tile.js/master/jquery.tile.js"></script>
-		<script type="text/javascript" src="//raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.js"></script>
-
+		<script type="text/javascript" src="https://raw.github.com/urin/jquery.tile.js/master/jquery.tile.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.js"></script>
     <script type="text/javascript">
 			$(function() {
 				$.balloon.defaults.classname = "balloon";
@@ -17,235 +17,10 @@
 				$('h1 > a').balloon({ position: "bottom" });
 			});
     </script>
-
-    <style>
-      * { margin: 0; padding: 0; }
-			.clearfix:after {
-				visibility: hidden;
-				display: block;
-				font-size: 0;
-				content: " ";
-				clear: both;
-				height: 0;
-				}
-			* html .clearfix             { zoom: 1; } /* IE6 */
-			*:first-child+html .clearfix { zoom: 1; } /* IE7 */
-
-      body {
-        width: 960px; padding: 20px; margin: 0 auto; line-height: 1.6;
-        background-color: #fff; color: #5baec0; font-family: Verdana;
-      }
-			img { border: none; }
-      a { text-decoration: underline; font: inherit; color: #5baec0; }
-			h1, h3, #copyright, .basic-code {
-				-moz-border-radius:    10px;
-				-webkit-border-radius: 10px;
-				border-radius:         10px;
-				margin-top: 20px;
-			}
-			.download-buttons { text-align: center; margin: 20px 0 40px; }
-      #copyright {
-				text-align: center;
-        clear: both; display: block; margin-top: 20px; padding: 10px;
-        font-size: 80%; background-color: #ddd;
-      }
-			body > table { width: 600px; margin: 40px auto 40px; background-color: #ddd; font-size: 120%; text-align: center; }
-      body > table, td, tr { border-collapse: collapse; border: 1px solid #aaa; }
-			code {
-				display: block; padding: 5px; font-size: 90%;
-				color: #666; background-color: #ddd; text-align: left; font-family: inherit;
-			}
-			.keyword { font-weight: bold; color: #5baec0; }
-			ul { list-style-position: inside; font-style: italic; }
-			h1 { font-size: 360%; line-height: 2; text-align: center; }
-			h1 a { text-decoration: none; }
-      h2 { font-size: 170%; line-height: 1.4; padding: 10px; margin: 0 auto 20px; text-align: center; }
-      h3 { font-size: 140%; line-height: 1.5; padding: 10px; background-color: #5baec0; color: #fff; text-align: left; }
-			h4 { font-size: 120%; line-height: 2; padding: 5px; background-color: #bbb; color: #fff; }
-			.section { padding: 20px; }
-			.how-to-use code { width: 700px; margin: 10px auto; padding: 5px 10px; font-size: 120%; }
-			.demos { padding: 20px; }
-			.balloon { font-size: 90%; }
-			.sample-script { padding-top: 10px; padding-bottom: 10px; }
-			.sample-outer { float: left; width: 430px; border: solid 1px #ddd; margin: 10px; }
-			.sample-explanation { margin-bottom: 10px; line-height: 1.4; background-color: #eee; }
-			.sample-explanation > p { padding: 5px; }
-			#default-options { padding: 20px 40px; font-size: 100%; }
-			#default-options > div { float: left; width: 400px; padding: 5px; margin: 10px; background-color: #eee; border: solid 1px #ddd; }
-			#advanced-methods { padding: 20px; }
-			#advanced-methods img { float: right; cursor: help; border: dotted 1px #ccc; }
-			#advanced-methods code { margin: 20px 0; width: 630px; font-size: 120%; }
-			#change-defaults code { margin: 20px auto; width: 550px; font-size: 120%; }
-    </style>
-
-		<style>
-			.button-bevel {
-				display: inline-block;
-				padding: 7px 20px 9px;
-				margin: .3em .3em .3em 0;
-				cursor: pointer;
-				text-align: center;
-				color: #fff; text-decoration: none; font-weight: bold;
-				text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-				-webkit-transition: 0.1s linear;
-				-moz-transition: 0.1s linear;
-				-ms-transition: 0.1s linear;
-				-o-transition: 0.1s linear;
-				transition: 0.1s linear;
-			}
-
-			.orange {
-				background: rgb(255,183,0);
-				background: -moz-linear-gradient(top,  rgba(255,183,0,1) 0%, rgba(255,140,0,1) 100%);
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,183,0,1)), color-stop(100%,rgba(255,140,0,1)));
-				background: -webkit-linear-gradient(top,  rgba(255,183,0,1) 0%,rgba(255,140,0,1) 100%);
-				background: -o-linear-gradient(top,  rgba(255,183,0,1) 0%,rgba(255,140,0,1) 100%);
-				background: -ms-linear-gradient(top,  rgba(255,183,0,1) 0%,rgba(255,140,0,1) 100%);
-				background: linear-gradient(to bottom,  rgba(255,183,0,1) 0%,rgba(255,140,0,1) 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb700', endColorstr='#ff8c00',GradientType=0 );
-				border: 1px solid #e59500;
-			}
-				.orange:hover {
-					background: rgb(255,203,72);
-					background: -moz-linear-gradient(top,  rgba(255,203,72,1) 0%, rgba(255,156,35,1) 100%);
-					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,203,72,1)), color-stop(100%,rgba(255,156,35,1)));
-					background: -webkit-linear-gradient(top,  rgba(255,203,72,1) 0%,rgba(255,156,35,1) 100%);
-					background: -o-linear-gradient(top,  rgba(255,203,72,1) 0%,rgba(255,156,35,1) 100%);
-					background: -ms-linear-gradient(top,  rgba(255,203,72,1) 0%,rgba(255,156,35,1) 100%);
-					background: linear-gradient(to bottom,  rgba(255,203,72,1) 0%,rgba(255,156,35,1) 100%);
-					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffcb48', endColorstr='#ff9c23',GradientType=0 );
-				}
-
-			.magenta {
-				background: rgb(255,130,172);
-				background: -moz-linear-gradient(top,  rgba(255,130,172,1) 0%, rgba(247,37,129,1) 100%);
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,130,172,1)), color-stop(100%,rgba(247,37,129,1)));
-				background: -webkit-linear-gradient(top,  rgba(255,130,172,1) 0%,rgba(247,37,129,1) 100%);
-				background: -o-linear-gradient(top,  rgba(255,130,172,1) 0%,rgba(247,37,129,1) 100%);
-				background: -ms-linear-gradient(top,  rgba(255,130,172,1) 0%,rgba(247,37,129,1) 100%);
-				background: linear-gradient(to bottom,  rgba(255,130,172,1) 0%,rgba(247,37,129,1) 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff82ac', endColorstr='#f72581',GradientType=0 );
-				border: 1px solid #c60a56;
-			}
-				.magenta:hover {
-					background: rgb(255,155,189);
-					background: -moz-linear-gradient(top,  rgba(255,155,189,1) 0%, rgba(248,62,143,1) 100%);
-					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,155,189,1)), color-stop(100%,rgba(248,62,143,1)));
-					background: -webkit-linear-gradient(top,  rgba(255,155,189,1) 0%,rgba(248,62,143,1) 100%);
-					background: -o-linear-gradient(top,  rgba(255,155,189,1) 0%,rgba(248,62,143,1) 100%);
-					background: -ms-linear-gradient(top,  rgba(255,155,189,1) 0%,rgba(248,62,143,1) 100%);
-					background: linear-gradient(to bottom,  rgba(255,155,189,1) 0%,rgba(248,62,143,1) 100%);
-					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9bbd', endColorstr='#f83e8f',GradientType=0 );
-				}
-
-			.cyan {
-				background: rgb(130,207,241);
-				background: -moz-linear-gradient(top,  rgba(130,207,241,1) 0%, rgba(56,174,234,1) 100%);
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(130,207,241,1)), color-stop(100%,rgba(56,174,234,1)));
-				background: -webkit-linear-gradient(top,  rgba(130,207,241,1) 0%,rgba(56,174,234,1) 100%);
-				background: -o-linear-gradient(top,  rgba(130,207,241,1) 0%,rgba(56,174,234,1) 100%);
-				background: -ms-linear-gradient(top,  rgba(130,207,241,1) 0%,rgba(56,174,234,1) 100%);
-				background: linear-gradient(to bottom,  rgba(130,207,241,1) 0%,rgba(56,174,234,1) 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82cff1', endColorstr='#38aeea',GradientType=0 );
-				border: 1px solid #3cafcf;
-			}
-				.cyan:hover {
-					background: rgb(153,216,244);
-					background: -moz-linear-gradient(top,  rgba(153,216,244,1) 0%, rgba(79,183,236,1) 100%);
-					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(153,216,244,1)), color-stop(100%,rgba(79,183,236,1)));
-					background: -webkit-linear-gradient(top,  rgba(153,216,244,1) 0%,rgba(79,183,236,1) 100%);
-					background: -o-linear-gradient(top,  rgba(153,216,244,1) 0%,rgba(79,183,236,1) 100%);
-					background: -ms-linear-gradient(top,  rgba(153,216,244,1) 0%,rgba(79,183,236,1) 100%);
-					background: linear-gradient(to bottom,  rgba(153,216,244,1) 0%,rgba(79,183,236,1) 100%);
-					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99d8f4', endColorstr='#4fb7ec',GradientType=0 );
-				}
-
-			.red {
-				background: #e25b53;
-				background: -moz-linear-gradient(top,  #e25b53 0%, #dd2011 100%);
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e25b53), color-stop(100%,#dd2011));
-				background: -webkit-linear-gradient(top,  #e25b53 0%,#dd2011 100%);
-				background: -o-linear-gradient(top,  #e25b53 0%,#dd2011 100%);
-				background: -ms-linear-gradient(top,  #e25b53 0%,#dd2011 100%);
-				background: linear-gradient(to bottom,  #e25b53 0%,#dd2011 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e25b53', endColorstr='#dd2011',GradientType=0 );
-				border: 1px solid #c42222;
-			}
-				.red:hover {
-					background: #dd7671;
-					background: -moz-linear-gradient(top,  #dd7671 0%, #dd2011 100%);
-					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dd7671), color-stop(100%,#dd2011));
-					background: -webkit-linear-gradient(top,  #dd7671 0%,#dd2011 100%);
-					background: -o-linear-gradient(top,  #dd7671 0%,#dd2011 100%);
-					background: -ms-linear-gradient(top,  #dd7671 0%,#dd2011 100%);
-					background: linear-gradient(to bottom,  #dd7671 0%,#dd2011 100%);
-					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dd7671', endColorstr='#dd2011',GradientType=0 );
-				}
-
-			.black {
-				background: #444444;
-				background: -moz-linear-gradient(top,  #444444 0%, #1c1c1c 100%);
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#444444), color-stop(100%,#1c1c1c));
-				background: -webkit-linear-gradient(top,  #444444 0%,#1c1c1c 100%);
-				background: -o-linear-gradient(top,  #444444 0%,#1c1c1c 100%);
-				background: -ms-linear-gradient(top,  #444444 0%,#1c1c1c 100%);
-				background: linear-gradient(to bottom,  #444444 0%,#1c1c1c 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#1c1c1c',GradientType=0 );
-				border: 1px solid #2a2a2a;
-			}
-				.black:hover {
-					background: #686868;
-					background: -moz-linear-gradient(top,  #686868 0%, #1c1c1c 100%);
-					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#686868), color-stop(100%,#1c1c1c));
-					background: -webkit-linear-gradient(top,  #686868 0%,#1c1c1c 100%);
-					background: -o-linear-gradient(top,  #686868 0%,#1c1c1c 100%);
-					background: -ms-linear-gradient(top,  #686868 0%,#1c1c1c 100%);
-					background: linear-gradient(to bottom,  #686868 0%,#1c1c1c 100%);
-					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#686868', endColorstr='#1c1c1c',GradientType=0 );
-				}
-
-			.green {
-				background: #82cc5d;
-				background: -moz-linear-gradient(top,  #82cc5d 0%, #53b73c 100%);
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#82cc5d), color-stop(100%,#53b73c));
-				background: -webkit-linear-gradient(top,  #82cc5d 0%,#53b73c 100%);
-				background: -o-linear-gradient(top,  #82cc5d 0%,#53b73c 100%);
-				background: -ms-linear-gradient(top,  #82cc5d 0%,#53b73c 100%);
-				background: linear-gradient(to bottom,  #82cc5d 0%,#53b73c 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82cc5d', endColorstr='#53b73c',GradientType=0 );
-				border: 1px solid #429E34;
-			}
-				.green:hover {
-					background: #99cc80;
-					background: -moz-linear-gradient(top,  #99cc80 0%, #53b73c 100%);
-					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#99cc80), color-stop(100%,#53b73c));
-					background: -webkit-linear-gradient(top,  #99cc80 0%,#53b73c 100%);
-					background: -o-linear-gradient(top,  #99cc80 0%,#53b73c 100%);
-					background: -ms-linear-gradient(top,  #99cc80 0%,#53b73c 100%);
-					background: linear-gradient(to bottom,  #99cc80 0%,#53b73c 100%);
-					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99cc80', endColorstr='#53b73c',GradientType=0 );
-				}
-
-			.button-bevel { vertical-align: top; border-radius: 4px; border: none; padding: 10px 25px 12px; }
-				.button-bevel:active { position: relative; top: 5px; }
-			.button-bevel.orange           { box-shadow: #c46d00 0 6px 0, rgba(0, 0, 0, 0.3) 0 10px 3px; }
-				.button-bevel.orange:active  { box-shadow: #c46d00 0 3px 0, rgba(0, 0, 0, 0.2) 0  6px 3px;  }
-			.button-bevel.magenta          { box-shadow: #ca075c 0 6px 0, rgba(0, 0, 0, 0.3) 0 10px 3px; }
-				.button-bevel.magenta:active { box-shadow: #ca075c 0 3px 0, rgba(0, 0, 0, 0.2) 0  6px 3px;  }
-			.button-bevel.cyan             { box-shadow: #1994d3 0 6px 0, rgba(0, 0, 0, 0.3) 0 10px 3px; }
-				.button-bevel.cyan:active    { box-shadow: #1994d3 0 3px 0, rgba(0, 0, 0, 0.2) 0  6px 3px;  }
-			.button-bevel.red              { box-shadow: #88180e 0 6px 0, rgba(0, 0, 0, 0.3) 0 10px 3px; }
-				.button-bevel.red:active     { box-shadow: #88180e 0 3px 0, rgba(0, 0, 0, 0.2) 0  6px 3px;  }
-			.button-bevel.black            { box-shadow: #000000 0 6px 0, rgba(0, 0, 0, 0.3) 0 10px 3px, inset rgba(255, 255, 255, 0.3) 0 0 3px; }
-				.button-bevel.black:active   { box-shadow: #000000 0 3px 0, rgba(0, 0, 0, 0.2) 0  6px 3px, inset rgba(255, 255, 255, 0.3) 0 0 3px;  }
-			.button-bevel.green            { box-shadow: #439230 0 6px 0, rgba(0, 0, 0, 0.3) 0 10px 3px; }
-				.button-bevel.green:active   { box-shadow: #439230 0 3px 0, rgba(0, 0, 0, 0.2) 0  6px 3px;  }
-		</style>
-
   </head>
 
   <body>
-    <h1><a href="//raw.github.com/urin/jquery.balloon.js/master/Demos/jquery.balloon.js-Demo.html" title="Reload?">jquery.balloon.js Demos</a></h1>
+    <h1><a href="demo.html" title="Reload?">jquery.balloon.js Demos</a></h1>
 		<h2>A jQuery plugin to add balloon tips to elements<br />
 			User-friendly, fine-tunable and without css and images</h2>
 		<h3>Getting started</h3>
@@ -304,9 +79,9 @@
 
 		<h3>Download</h3>
 		<div class="download-buttons">
-			<a class="button-bevel cyan" href="//raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.min.js">Download compressed</a>
-			<a class="button-bevel cyan" href="//raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.js">Download uncompressed</a>
-			<a class="button-bevel cyan" href="//github.com/urin/jquery.balloon.js">Activity on GitHub</a>
+			<a class="button-bevel cyan" href="https://raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.min.js">Download compressed</a>
+			<a class="button-bevel cyan" href="https://raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.js">Download uncompressed</a>
+			<a class="button-bevel cyan" href="https://github.com/urin/jquery.balloon.js">Activity on GitHub</a>
 		</div>
 
 		<h3>Demos</h3>
@@ -325,8 +100,8 @@
 					<code class="sample-script"><p>$('#sample1 a').balloon();</p><p>$('#sample1 img').balloon();</p></code>
 				</div>
 				<div id="sample1-demo">
-					<a href="//en.wikipedia.org/wiki/Relativism"><img src="Wiki.png" alt="Wikipedia, the free encyclopedia" width="135" height="155" /></a></p>
-					<p>Relativism is the concept that points of view have no absolute <a href="//en.wikipedia.org/wiki/Truth" title="Truth">truth</a> or <a href="//en.wikipedia.org/wiki/Validity" title="Validity">validity</a>, having only relative, subjective value according to differences in perception and consideration.<sup><a href="#cite_note-0"><span>[</span>1<span>]</span></a></sup><sup><a href="#cite_note-1"><span>[</span>2<span>]</span></a></sup> The term is often used to refer to the context of <a href="//en.wikipedia.org/wiki/Moral" title="Moral">moral</a> principle, where in a relativistic mode of thought, <a href="//en.wikipedia.org/wiki/Value_(personal_and_cultural)" title="Value (personal and cultural)">principles</a> and <a href="//en.wikipedia.org/wiki/Ethics" title="Ethics">ethics</a> are regarded as applicable in only limited context. There are many forms of relativism which vary in their degree of controversy.<sup><a href="#cite_note-2"><span>[</span>3<span>]</span></a></sup></p>
+					<a href="http://en.wikipedia.org/wiki/Relativism"><img src="img/Wiki.png" alt="Wikipedia, the free encyclopedia" width="135" height="155" /></a></p>
+					<p>Relativism is the concept that points of view have no absolute <a href="http://en.wikipedia.org/wiki/Truth" title="Truth">truth</a> or <a href="http://en.wikipedia.org/wiki/Validity" title="Validity">validity</a>, having only relative, subjective value according to differences in perception and consideration.<sup><a href="#cite_note-0"><span>[</span>1<span>]</span></a></sup><sup><a href="#cite_note-1"><span>[</span>2<span>]</span></a></sup> The term is often used to refer to the context of <a href="http://en.wikipedia.org/wiki/Moral" title="Moral">moral</a> principle, where in a relativistic mode of thought, <a href="http://en.wikipedia.org/wiki/Value_(personal_and_cultural)" title="Value (personal and cultural)">principles</a> and <a href="http://en.wikipedia.org/wiki/Ethics" title="Ethics">ethics</a> are regarded as applicable in only limited context. There are many forms of relativism which vary in their degree of controversy.<sup><a href="#cite_note-2"><span>[</span>3<span>]</span></a></sup></p>
 				</div>
 			</div>
 
@@ -453,14 +228,14 @@
 					#sample7-demo > div { float: left; width: 150px; height: 150px; background-color: #ddd; margin: 20px; }
 					.balloon-sample7-2 {
 						width: 226px; height: 163px; line-height: 153px;
-						background: url(balloon-sample1.png) center center no-repeat transparent;
+						background: url(img/balloon-sample1.png) center center no-repeat transparent;
 						color: #fff; font-size: 150%; font-weight: bold; text-align: center;
 					}
 					.balloon-sample7-2 a { color: inherit; }
 				</style>
 				<div class="sample-explanation">
 					<h4>css</h4>
-					<p>Option <var>css</var> is an style object applied to balloon. See <a href="//api.jquery.com/css/">.css() ? jQuery API</a> for reference.</p>
+					<p>Option <var>css</var> is an style object applied to balloon. See <a href="http://api.jquery.com/css/">.css() ? jQuery API</a> for reference.</p>
 					<code class="sample-script">
 						$('.sample7-1').balloon({<br />
 						&nbsp;&nbsp;tipSize: 24,<br />
@@ -562,7 +337,7 @@
 			<div id="sample11" class="sample-outer">
 				<script>
 					$(function() {
-						new Image().src = "balloon-sample-loading.gif";
+						new Image().src = "img/balloon-sample-loading.gif";
 						eval($('#sample11 .sample-script').text());
 					}); </script>
 				<style>
@@ -570,7 +345,7 @@
 				</style>
 				<div class="sample-explanation">
 					<h4>url, ajaxComplete</h4>
-					<p>Options <var>url</var> and <var>ajaxComplete</var> are used for getting contents by Ajax. Option contents is used at first. At completion of the ajax request, contents of balloon is relplaced by the data. The functon ajaxComplete is called at completion of ajax. Parameter of this function are same as third parameter of <a href="//api.jquery.com/load/">.load() ? jQuery API</a>.</p>
+					<p>Options <var>url</var> and <var>ajaxComplete</var> are used for getting contents by Ajax. Option contents is used at first. At completion of the ajax request, contents of balloon is relplaced by the data. The functon ajaxComplete is called at completion of ajax. Parameter of this function are same as third parameter of <a href="http://api.jquery.com/load/">.load() ? jQuery API</a>.</p>
 					<code class="sample-script">
 						$('.sample11-1').balloon({<br />
 							&nbsp;&nbsp;position: 'right',<br />
@@ -612,7 +387,7 @@
 			});
 		</script>
 		<div id="advanced-methods">
-			<img src="chess.png" id="knight" class="clearfix" alt="knight of chess" title="Click me to toggle balloon.<br /><span style=&quot;font-size: 90%; font-weight: normal; color: #743946&quot;>Common sense is the collection of prejudices acquired by age eighteen.</span>" width="256" height="256" />
+			<img src="img/chess.png" id="knight" class="clearfix" alt="knight of chess" title="Click me to toggle balloon.<br /><span style=&quot;font-size: 90%; font-weight: normal; color: #743946&quot;>Common sense is the collection of prejudices acquired by age eighteen.</span>" width="256" height="256" />
 			<p>To bind another event, use $().showBalloon(<var>options</var>) and $().hideBalloon(<var>options</var>).</p>
 			<p>This sample (an image element of knight of chess) binds these methods to click event. It is not necessary to specify options for each calling.</p>
 			<p>The opsions for the jQuery object is chached by calling these methods.</p>
