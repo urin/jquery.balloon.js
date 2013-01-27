@@ -5,7 +5,7 @@
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
- * @author: Hayato Takenaka (http://urin.take-uma.net)
+ * @author: Hayato Takenaka (http://urin.github.com)
  * @version: 0.3.1 - 2012/04/18
 **/
 ;(function($) {
