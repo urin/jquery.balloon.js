@@ -6,7 +6,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (http://urin.github.com)
- * @version: 0.3.3 - 2012/04/18
+ * @version: 0.3.4 - 2012/04/18
 **/
 ;(function($) {
 	//-----------------------------------------------------------------------------
