@@ -1,0 +1,38 @@
+{
+    "name": "balloon",
+    "title": "Balloon",
+    "description": "A jQuery plugin to add balloon tips to elements. User-friendly, fine-tunable and without css and images.",
+    "keywords": [
+        "balloon",
+        "tip"
+    ],
+    "version": "0.3.1",
+    "author": {
+        "name": "urin",
+        "url": "https://github.com/urin"
+    },
+    "maintainers": [
+        {
+            "name": "urin",
+            "email": "urinkun@gmail.com",
+            "url": "https://github.com/urin"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        },
+        {
+            "type": "GPL",
+            "url": "http://www.gnu.org/licenses/gpl.html"
+        }
+    ],
+    "bugs": "https://github.com/urin/jquery.balloon.js/issues",
+    "homepage": "https://github.com/urin/jquery.balloon.js",
+    "docs": "http://urin.github.com/jquery.balloon.js",
+    "download": "https://raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.js",
+    "dependencies": {
+        "jquery": ">=1.4.2"
+    }
+}
