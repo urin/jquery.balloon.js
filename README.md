@@ -1,21 +1,24 @@
-# [jquery.balloon.js](http://urin.github.com/jquery.balloon.js/)
+# [jquery.balloon.js](//urin.github.com/jquery.balloon.js/)
 A jQuery plugin to add balloon tips to elements User-friendly, fine-tunable and without css and images
 
 Demos
 ------------------------
-See [demos](http://urin.github.com/jquery.balloon.js/).
+See [demos](//urin.github.com/jquery.balloon.js/).
 
 Quick start
 ------------------------
 (1) Download and load this plugin javascript file after jQuery.  
-
+```html
     <script src="js/jquery.balloon.js"></script>
+```
 
 (2) Call $().balloon(options) in document ready event of jQuery.  
 
+```javascript
     $(function() {
       $('selectors').balloon(options);
     });
+```
 
 Distinct features
 ------------------------
