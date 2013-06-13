@@ -8,6 +8,7 @@ See [demos](//urin.github.com/jquery.balloon.js/).
 Quick start
 ------------------------
 (1) Download and load this plugin javascript file after jQuery.  
+
 ```html
     <script src="js/jquery.balloon.js"></script>
 ```
