@@ -190,7 +190,7 @@
 		var $target, $balloon, offTimer;
 		if(!$.balloon.defaults.css) $.balloon.defaults.css = {};
 		if(options || !this.data("options"))
-			this.data("options", $.extend(true, {}, $.balloon.defaults, options));
+			this.data("options", $.extend(true, {}, $.balloon.defaults, options || {}));
 		options = this.data("options");
 		return this.each(function() {
 			$target = $(this);
