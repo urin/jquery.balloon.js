@@ -6,7 +6,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (http://urin.github.com)
- * @version: 0.4.0 - 2014/02/09
+ * @version: 0.4.1 - 2014/02/09
 **/
 (function($) {
   //-----------------------------------------------------------------------------
@@ -177,6 +177,9 @@
         $balloon.mouseleave(function(e) {
           if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
           $target.hideBalloon();
+        }).mouseenter(function(e) {
+          $balloon.stop(true, true);
+          $target.showBalloon();
         });
       }
     }).mouseleave(function(e) {
@@ -188,7 +191,7 @@
   $.fn.showBalloon = function(options) {
     var $target, $balloon, offTimer;
     if(options || !this.data("options")) {
-      if($.balloon.defaults.css == null) $.balloon.defaults.css = {};
+      if($.balloon.defaults.css === null) $.balloon.defaults.css = {};
       this.data("options", $.extend(true, {}, $.balloon.defaults, options || {}));
     }
     options = this.data("options");
@@ -212,7 +215,7 @@
       if(isNew) {
         $balloon
           .addClass(options.classname)
-          .css(options.css)
+          .css(options.css || {})
           .css({visibility: "hidden", position: "absolute"})
           .appendTo("body");
         $target.data("balloon", $balloon);
