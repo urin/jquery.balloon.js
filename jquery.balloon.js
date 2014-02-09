@@ -6,7 +6,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (http://urin.github.com)
- * @version: 0.3.5 - 2013/06/26
+ * @version: 0.4.0 - 2014/02/09
 **/
 (function($) {
   //-----------------------------------------------------------------------------
@@ -160,7 +160,7 @@
   // True if the event comes from the target or balloon.
   function isValidTargetEvent($target, e) {
     var b = $target.data("balloon") && $target.data("balloon").get(0);
-    return !(b && (b == e.relatedTarget || $.contains(b, e.relatedTarget)));
+    return !(b && (b === e.relatedTarget || $.contains(b, e.relatedTarget)));
   }
 
   //-----------------------------------------------------------------------------
@@ -175,9 +175,9 @@
         }).data("balloon");
       if($balloon) {
         $balloon.mouseleave(function(e) {
-          if(t == e.relatedTarget || $.contains(t, e.relatedTarget)) return;
+          if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
           $target.hideBalloon();
-        }).mouseenter(function(e) { $target.showBalloon(); });
+        });
       }
     }).mouseleave(function(e) {
       var $target = $(this);
@@ -223,16 +223,16 @@
       }
       $target.data("onTimer", setTimeout(function() {
         if(options.showAnimation) {
-          options.showAnimation.apply($balloon.stop(true, true), [options.showDuration]);
+          options.showAnimation.apply($balloon.stop(true, true), [options.showDuration, options.showComplete]);
         } else {
           $balloon.show(options.showDuration, function() {
             if(this.style.removeAttribute) { this.style.removeAttribute("filter"); }
+            options.showComplete && options.showComplete.apply($balloon);
           });
         }
       }, options.delay));
     });
   };
-
   $.fn.hideBalloon = function() {
     var options = this.data("options"), onTimer, offTimer;
     if(!this.data("balloon")) return this;
@@ -243,9 +243,9 @@
       $target.data("offTimer", setTimeout(function() {
         var $balloon = $target.data("balloon");
         if(options.hideAnimation) {
-          $balloon && options.hideAnimation.apply($balloon.stop(true, true), [options.hideDuration]);
+          $balloon && options.hideAnimation.apply($balloon.stop(true, true), [options.hideDuration, options.hideComplete]);
         } else {
-          $balloon && $balloon.stop(true, true).hide(options.hideDuration);
+          $balloon && $balloon.stop(true, true).hide(options.hideDuration, options.hideComplete);
         }
       },
       options.minLifetime));
@@ -259,6 +259,7 @@
       delay: 0, minLifetime: 200,
       showDuration: 100, showAnimation: null,
       hideDuration:  80, hideAnimation: function(d) { this.fadeOut(d); },
+      showComplete: null, hideComplete: null,
       css: {
         minWidth       : "20px",
         padding        : "5px",
