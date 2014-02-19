@@ -10,15 +10,15 @@ Quick start
 (1) Download and load this plugin javascript file after jQuery.  
 
 ```html
-    <script src="js/jquery.balloon.js"></script>
+<script src="js/jquery.balloon.js"></script>
 ```
 
 (2) Call $().balloon(options) in document ready event of jQuery.  
 
 ```javascript
-    $(function() {
-      $('selectors').balloon(options);
-    });
+$(function() {
+  $('selectors').balloon(options);
+});
 ```
 
 Distinct features
