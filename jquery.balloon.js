@@ -6,9 +6,10 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (http://urin.github.com)
- * @version: 0.5.1 - 2014/03/13
+ * @version: 0.6.0 - 2014/12/20
 **/
 (function($) {
+  "use strict";
   //-----------------------------------------------------------------------------
   // Private
   //-----------------------------------------------------------------------------
@@ -167,29 +168,29 @@
   // Public
   //-----------------------------------------------------------------------------
   $.fn.balloon = function(options) {
-    return this.one("mouseenter", function(e) {
+    return this.one("mouseenter", function first(e) {
       var $target = $(this), t = this;
-      var $balloon = $target.unbind("mouseenter", arguments.callee)
-        .showBalloon(options).mouseenter(function(e) {
+      var $balloon = $target.off("mouseenter", first)
+        .showBalloon(options).on("mouseenter", function(e) {
           isValidTargetEvent($target, e) && $target.showBalloon();
         }).data("balloon");
       if($balloon) {
-        $balloon.mouseleave(function(e) {
+        $balloon.on("mouseleave", function(e) {
           if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
           $target.hideBalloon();
-        }).mouseenter(function(e) {
+        }).on("mouseenter", function(e) {
           $balloon.stop(true, true);
           $target.showBalloon();
         });
       }
-    }).mouseleave(function(e) {
+    }).on("mouseleave", function(e) {
       var $target = $(this);
       isValidTargetEvent($target, e) && $target.hideBalloon();
     });
   };
 
   $.fn.showBalloon = function(options) {
-    var $target, $balloon, offTimer;
+    var $target, $balloon;
     if(options || !this.data("options")) {
       if($.balloon.defaults.css === null) $.balloon.defaults.css = {};
       this.data("options", $.extend(true, {}, $.balloon.defaults, options || {}));
@@ -198,8 +199,9 @@
     return this.each(function() {
       var isNew, contents;
       $target = $(this);
-      (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
-      contents = $.isFunction(options.contents) ? options.contents()
+      clearTimeout($target.data("minLifetime"));
+      contents = $.isFunction(options.contents)
+        ? options.contents.apply(this)
         : (options.contents || (options.contents = $target.attr("title") || $target.attr("alt")));
       isNew = !($balloon = $target.data("balloon"));
       if(isNew) $balloon = $("<div>").append(contents);
@@ -224,26 +226,39 @@
       } else {
         makeupBalloon($target, $balloon, options);
       }
-      $target.data("onTimer", setTimeout(function() {
+      $target.data("delay", setTimeout(function() {
         if(options.showAnimation) {
-          options.showAnimation.apply($balloon.stop(true, true), [options.showDuration, options.showComplete]);
+          options.showAnimation.apply(
+            $balloon.stop(true, true), [
+              options.showDuration, function() {
+                options.showComplete && options.showComplete.apply($balloon);
+              }
+            ]
+          );
         } else {
           $balloon.show(options.showDuration, function() {
             if(this.style.removeAttribute) { this.style.removeAttribute("filter"); }
             options.showComplete && options.showComplete.apply($balloon);
           });
         }
+        if(options.maxLifetime) {
+          clearTimeout($target.data("maxLifetime"));
+          $target.data("maxLifetime",
+            setTimeout(function() { $target.hideBalloon(); }, options.maxLifetime)
+          );
+        }
       }, options.delay));
     });
   };
+
   $.fn.hideBalloon = function() {
-    var options = this.data("options"), onTimer, offTimer;
+    var options = this.data("options");
     if(!this.data("balloon")) return this;
     return this.each(function() {
       var $target = $(this);
-      (onTimer = $target.data("onTimer")) && clearTimeout(onTimer);
-      (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
-      $target.data("offTimer", setTimeout(function() {
+      clearTimeout($target.data("delay"));
+      clearTimeout($target.data("minLifetime"));
+      $target.data("minLifetime", setTimeout(function() {
         var $balloon = $target.data("balloon");
         if(options.hideAnimation) {
           $balloon && options.hideAnimation.apply($balloon.stop(true, true), [options.hideDuration, options.hideComplete]);
@@ -259,7 +274,7 @@
     defaults: {
       contents: null, url: null, ajaxComplete: null, classname: null,
       position: "top", offsetX: 0, offsetY: 0, tipSize: 12,
-      delay: 0, minLifetime: 200,
+      delay: 0, minLifetime: 200, maxLifetime: 0,
       showDuration: 100, showAnimation: null,
       hideDuration:  80, hideAnimation: function(d) { this.fadeOut(d); },
       showComplete: null, hideComplete: null,

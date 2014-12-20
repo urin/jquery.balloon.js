@@ -6,7 +6,7 @@
     "balloon",
     "tip"
   ],
-  "version": "0.5.1",
+  "version": "0.6.0",
   "author": {
     "name": "urin",
     "url": "https://github.com/urin"
@@ -28,11 +28,11 @@
       "url": "http://www.gnu.org/licenses/gpl.html"
     }
   ],
-  "bugs": "https://github.com/urin/jquery.balloon.js/issues",
+  "bugs":     "https://github.com/urin/jquery.balloon.js/issues",
   "homepage": "https://github.com/urin/jquery.balloon.js",
-  "docs": "http://urin.github.com/jquery.balloon.js",
+  "docs":     "http://urin.github.com/jquery.balloon.js",
   "download": "https://raw.github.com/urin/jquery.balloon.js/master/jquery.balloon.js",
   "dependencies": {
-    "jquery": ">=1.4.2"
+    "jquery": ">=1.7.0"
   }
 }
