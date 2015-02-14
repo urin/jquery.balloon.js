@@ -6,7 +6,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (http://urin.github.com)
- * @version: 0.6.0 - 2014/12/20
+ * @version: 0.6.1 - 2015/02/14
 **/
 (function($) {
   "use strict";
@@ -179,7 +179,8 @@
           if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
           $target.hideBalloon();
         }).on("mouseenter", function(e) {
-          $balloon.stop(true, true);
+          if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
+          $balloon.stop(true, false);
           $target.showBalloon();
         });
       }
