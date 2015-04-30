@@ -6,7 +6,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (http://urin.github.com)
- * @version: 0.6.1 - 2015/02/14
+ * @version: 0.6.2 - 2015/04/30
 **/
 (function($) {
   "use strict";
@@ -20,10 +20,10 @@
   Meta.getRelativeNames = function(position) {
     var idx = {
       pos: {
-        o: position,                                          // origin
-        f: (position % 2 == 0) ? position + 1 : position - 1, // faced
-        p1: (position % 2 == 0) ? position : position - 1,
-        p2: (position % 2 == 0) ? position + 1 : position,
+        o: position,                                           // origin
+        f: (position % 2 === 0) ? position + 1 : position - 1, // faced
+        p1: (position % 2 === 0) ? position : position - 1,
+        p2: (position % 2 === 0) ? position + 1 : position,
         c1: (position < 2) ? 2 : 0,
         c2: (position < 2) ? 3 : 1
       },
@@ -42,7 +42,7 @@
         names.camel[m1][m2] = Meta[m1].camel[idx[m1][m2]];
       }
     }
-    names.isTopLeft = (names.pos.o == names.pos.p1);
+    names.isTopLeft = (names.pos.o === names.pos.p1);
     return names;
   };
 
@@ -81,12 +81,12 @@
     };
     for(var i = 0; i < Meta.pos.length; i++) {
       NumericalBoxElement.prototype["setBorder" + Meta.pos.camel[i]] = Methods.setBorder(Meta.pos.camel[i], (i < 2));
-      if(i % 2 == 0)
+      if(i % 2 === 0)
         NumericalBoxElement.prototype["set" + Meta.pos.camel[i]] = Methods.setPosition(Meta.pos.camel[i], (i < 2));
     }
 
     function digitalize(box, isVertical) {
-      if(isVertical == undefined) { digitalize(box, true); return digitalize(box, false); }
+      if(isVertical == null) { digitalize(box, true); return digitalize(box, false); }
       var m = Meta.getRelativeNames((isVertical) ? 0 : 2);
       box[m.size.p] = box.$["outer" + m.camel.size.p]();
       box[m.pos.f] = box[m.pos.o] + box[m.size.p];
@@ -126,7 +126,7 @@
         m = Meta.getRelativeNames(i);
         if(balloon.center[m.pos.c1] >= target[m.pos.c1] &&
           balloon.center[m.pos.c1] <= target[m.pos.c2]) {
-          if(i % 2 == 0) {
+          if(i % 2 === 0) {
             if(balloon[m.pos.o] >= target[m.pos.o] && balloon[m.pos.f] >= target[m.pos.f]) break;
           } else {
             if(balloon[m.pos.o] <= target[m.pos.o] && balloon[m.pos.f] <= target[m.pos.f]) break;
@@ -180,7 +180,7 @@
           $target.hideBalloon();
         }).on("mouseenter", function(e) {
           if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
-          $balloon.stop(true, false);
+          $balloon.stop(true, true);
           $target.showBalloon();
         });
       }
@@ -200,14 +200,17 @@
     return this.each(function() {
       var isNew, contents;
       $target = $(this);
+      isNew = !$target.data("balloon");
+      $balloon = $target.data("balloon") || $("<div>");
+      if(!isNew && $balloon.data("active")) { return; }
+      $balloon.data("active", true);
       clearTimeout($target.data("minLifetime"));
       contents = $.isFunction(options.contents)
         ? options.contents.apply(this)
         : (options.contents || (options.contents = $target.attr("title") || $target.attr("alt")));
-      isNew = !($balloon = $target.data("balloon"));
-      if(isNew) $balloon = $("<div>").append(contents);
-      if(!options.url && (!$balloon || $balloon.html() == "")) return;
-      if(!isNew && contents && contents != $balloon.html()) $balloon.empty().append(contents);
+      $balloon.append(contents);
+      if(!options.url && $balloon.html() === "") { return; }
+      if(!isNew && contents !== $balloon.html()) $balloon.empty().append(contents);
       $target.removeAttr("title");
       if(options.url) {
         $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function(res, sts, xhr) {
@@ -262,9 +265,24 @@
       $target.data("minLifetime", setTimeout(function() {
         var $balloon = $target.data("balloon");
         if(options.hideAnimation) {
-          $balloon && options.hideAnimation.apply($balloon.stop(true, true), [options.hideDuration, options.hideComplete]);
+          options.hideAnimation.apply(
+            $balloon.stop(true, true),
+            [
+              options.hideDuration,
+              function(d) {
+                $(this).data("active", false);
+                options.hideComplete && options.hideComplete(d);
+              }
+            ]
+          );
         } else {
-          $balloon && $balloon.stop(true, true).hide(options.hideDuration, options.hideComplete);
+          $balloon.stop(true, true).hide(
+            options.hideDuration,
+            function(d) {
+              $(this).data("active", false);
+              options.hideComplete && options.hideComplete(d);
+            }
+          );
         }
       },
       options.minLifetime));
@@ -277,7 +295,7 @@
       position: "top", offsetX: 0, offsetY: 0, tipSize: 12,
       delay: 0, minLifetime: 200, maxLifetime: 0,
       showDuration: 100, showAnimation: null,
-      hideDuration:  80, hideAnimation: function(d) { this.fadeOut(d); },
+      hideDuration:  80, hideAnimation: function(d, c) { this.fadeOut(d, c); },
       showComplete: null, hideComplete: null,
       css: {
         minWidth       : "20px",
@@ -287,10 +305,11 @@
         boxShadow      : "4px 4px 4px #555",
         color          : "#666",
         backgroundColor: "#efefef",
-        opacity        : ($.support.opacity) ? "0.85" : null,
+        opacity        : "0.85",
         zIndex         : "32767",
         textAlign      : "left"
       }
     }
   };
 })(jQuery);
+
