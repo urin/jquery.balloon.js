@@ -152,7 +152,7 @@
         ["setBorder" + m.camel.pos.c1](len)
         ["setBorder" + m.camel.pos.c2](len)
         ["set" + m.camel.pos.p1]((m.isTopLeft) ? -tipSize : balloon.inner[m.size.p])
-        ["set" + m.camel.pos.c1](balloon.inner[m.size.c] / tipPosition - len)
+        ["set" + m.camel.pos.c1](balloon.inner[m.size.c] / options.tipPosition - len)
         .active()
         .$.css("border-" + m.pos.f + "-color", color);
     }
