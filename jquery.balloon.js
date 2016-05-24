@@ -33,12 +33,12 @@
         }
       };
       const names = {};
-      for(const m1 in idx) {
-        if(!names[m1]) names[m1] = {};
-        for(const m2 in idx[m1]) {
+      for(var m1 in idx) {
+        if(!names[m1]) { names[m1] = {}; }
+        for(var m2 in idx[m1]) {
           names[m1][m2] = Meta[m1][idx[m1][m2]];
-          if(!names.camel) names.camel = {};
-          if(!names.camel[m1]) names.camel[m1] = {};
+          if(!names.camel) { names.camel = {}; }
+          if(!names.camel[m1]) { names.camel[m1] = {}; }
           names.camel[m1][m2] = Meta[m1].camel[idx[m1][m2]];
         }
       }
@@ -72,7 +72,7 @@
       initialize: function($element) {
         this.$ = $element;
         $.extend(true, this, this.$.offset(), {center: {}, inner: {center: {}}});
-        for(let i = 0; i < Meta.pos.length; i++) {
+        for(var i = 0; i < Meta.pos.length; i++) {
           this['border' + Meta.pos.camel[i]] = parseInt(this.$.css('border-' + Meta.pos[i] + '-width')) || 0;
         }
         this.active();
@@ -80,10 +80,11 @@
       active: function() { this.isActive = true; digitalize(this); return this; },
       inactive: function() { this.isActive = false; return this; }
     };
-    for(let i = 0; i < Meta.pos.length; i++) {
+    for(var i = 0; i < Meta.pos.length; i++) {
       NumericalBoxElement.prototype['setBorder' + Meta.pos.camel[i]] = Methods.setBorder(Meta.pos.camel[i], (i < 2));
-      if(i % 2 === 0)
+      if(i % 2 === 0) {
         NumericalBoxElement.prototype['set' + Meta.pos.camel[i]] = Methods.setPosition(Meta.pos.camel[i], (i < 2));
+      }
     }
 
     function digitalize(box, isVertical) {
@@ -103,7 +104,7 @@
   // Adjust position of balloon body
   function makeupBalloon($target, $balloon, options) {
     $balloon.stop(true, true);
-    let outerTip, innerTip;
+    var outerTip, innerTip;
     const initTipStyle = {position: 'absolute', height: '0', width: '0', border: 'solid 0 transparent'},
       target = new NumericalBoxElement($target),
       balloon = new NumericalBoxElement($balloon);
@@ -122,15 +123,15 @@
       outerTip = new NumericalBoxElement($('<div>').css(initTipStyle).appendTo($balloon));
       innerTip = new NumericalBoxElement($('<div>').css(initTipStyle).appendTo($balloon));
       // Make tip triangle, adjust position of tips.
-      let m;
-      for(let i = 0; i < Meta.pos.length; i++) {
+      var m;
+      for(var i = 0; i < Meta.pos.length; i++) {
         m = Meta.getRelativeNames(i);
         if(balloon.center[m.pos.c1] >= target[m.pos.c1] &&
           balloon.center[m.pos.c1] <= target[m.pos.c2]) {
           if(i % 2 === 0) {
-            if(balloon[m.pos.o] >= target[m.pos.o] && balloon[m.pos.f] >= target[m.pos.f]) break;
+            if(balloon[m.pos.o] >= target[m.pos.o] && balloon[m.pos.f] >= target[m.pos.f]) { break; }
           } else {
-            if(balloon[m.pos.o] <= target[m.pos.o] && balloon[m.pos.f] <= target[m.pos.f]) break;
+            if(balloon[m.pos.o] <= target[m.pos.o] && balloon[m.pos.f] <= target[m.pos.f]) { break; }
           }
         }
         m = null;
@@ -176,10 +177,10 @@
       }).off('mouseenter', first).showBalloon(options).data('balloon');
       if($balloon) {
         $balloon.on('mouseleave', function(e) {
-          if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
+          if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) { return; }
           $target.hideBalloon();
         }).on('mouseenter', function(e) {
-          if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) return;
+          if(t === e.relatedTarget || $.contains(t, e.relatedTarget)) { return; }
           $balloon.stop(true, true);
           $target.showBalloon();
         });
@@ -191,14 +192,14 @@
   };
 
   $.fn.showBalloon = function(options) {
-    let $target, $balloon;
+    var $target, $balloon;
     if(options || !this.data('options')) {
-      if($.balloon.defaults.css === null) $.balloon.defaults.css = {};
+      if($.balloon.defaults.css === null) { $.balloon.defaults.css = {}; }
       this.data('options', $.extend(true, {}, $.balloon.defaults, options || {}));
     }
     options = this.data('options');
     return this.each(function() {
-      let isNew;
+      var isNew;
       $target = $(this);
       isNew = !$target.data('balloon');
       $balloon = $target.data('balloon') || $('<div>');
@@ -222,9 +223,13 @@
         }
       }
       $target.removeAttr('title');
-      if(options.url) {
+      if(options.url && !$balloon.data('ajaxDisabled')) {
         $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function(res, sts, xhr) {
-          if(options.ajaxComplete) options.ajaxComplete(res, sts, xhr);
+          if(sts === 'success' || sts === 'notmodified') { $balloon.data('ajaxDisabled', true); }
+          if(options.ajaxContentsMaxAge >= 0) {
+            setTimeout(function() { $balloon.data('ajaxDisabled', false); }, options.ajaxContentsMaxAge);
+          }
+          if(options.ajaxComplete) { options.ajaxComplete(res, sts, xhr); }
           makeupBalloon($target, $balloon, options);
         });
       }
@@ -232,7 +237,7 @@
         $balloon
           .addClass(options.classname)
           .css(options.css || {})
-          .css({visibility: 'hidden', position: 'absolute'})
+          .css({ visibility: 'hidden', position: 'absolute' })
           .appendTo('body');
         $target.data('balloon', $balloon);
         makeupBalloon($target, $balloon, options);
@@ -267,7 +272,7 @@
 
   $.fn.hideBalloon = function() {
     const options = this.data('options');
-    if(!this.data('balloon')) return this;
+    if(!this.data('balloon')) { return this; }
     return this.each(function() {
       const $target = $(this);
       clearTimeout($target.data('delay'));
@@ -301,7 +306,7 @@
 
   $.balloon = {
     defaults: {
-      contents: null, url: null, ajaxComplete: null,
+      contents: null, url: null, ajaxComplete: null, ajaxContentsMaxAge: -1,
       html: false, classname: null,
       position: 'top', offsetX: 0, offsetY: 0, tipSize: 8, tipPosition: 2,
       delay: 0, minLifetime: 200, maxLifetime: 0,
