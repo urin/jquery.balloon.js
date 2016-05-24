@@ -1,0 +1,22 @@
+{
+  "name": "jquery-balloon-js",
+  "version": "1.0.0",
+  "description": "jQuery plugin to add balloon tips to elements",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urin/jquery.balloon.js.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "author": "urin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/urin/jquery.balloon.js/issues"
+  },
+  "homepage": "https://github.com/urin/jquery.balloon.js#readme",
+  "dependencies": {
+    "jquery": ">=1.7.0"
+  }
+}
