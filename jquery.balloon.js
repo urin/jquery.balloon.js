@@ -208,9 +208,19 @@
       const contents = $.isFunction(options.contents)
         ? options.contents.apply(this)
         : (options.contents || (options.contents = $target.attr('title') || $target.attr('alt')));
-      $balloon.append(contents);
+      if(options.html) {
+        $balloon.append(contents);
+      } else {
+        $balloon.text(contents);
+      }
       if(!options.url && $balloon.html() === '') { return; }
-      if(!isNew && contents !== $balloon.html()) $balloon.empty().append(contents);
+      if(!isNew && contents !== $balloon.html()) {
+        if(options.html) {
+          $balloon.empty().append(contents);
+        } else {
+          $balloon.text(contents);
+        }
+      }
       $target.removeAttr('title');
       if(options.url) {
         $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function(res, sts, xhr) {
@@ -291,21 +301,22 @@
 
   $.balloon = {
     defaults: {
-      contents: null, url: null, ajaxComplete: null, classname: null,
-      position: 'top', offsetX: 0, offsetY: 0, tipSize: 12, tipPosition: 2,
+      contents: null, url: null, ajaxComplete: null,
+      html: false, classname: null,
+      position: 'top', offsetX: 0, offsetY: 0, tipSize: 8, tipPosition: 2,
       delay: 0, minLifetime: 200, maxLifetime: 0,
       showDuration: 100, showAnimation: null,
       hideDuration:  80, hideAnimation: function(d, c) { this.fadeOut(d, c); },
       showComplete: null, hideComplete: null,
       css: {
-        minWidth       : '20px',
-        padding        : '5px',
-        borderRadius   : '6px',
-        border         : 'solid 1px #777',
-        boxShadow      : '4px 4px 4px #555',
-        color          : '#666',
-        backgroundColor: '#efefef',
-        opacity        : '0.85',
+        fontSize       : '.7rem',
+        minWidth       : '.7rem',
+        padding        : '.2rem .5rem',
+        border         : 'solid 1px rgba(212, 212, 212, .4)',
+        borderRadius   : '3px',
+        boxShadow      : '2px 2px 4px #555',
+        color          : '#eee',
+        backgroundColor: 'rgba(0, 0, 0, .8)',
         zIndex         : '32767',
         textAlign      : 'left'
       }
