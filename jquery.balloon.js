@@ -224,14 +224,20 @@
       }
       $target.removeAttr('title');
       if(options.url && !$balloon.data('ajaxDisabled')) {
-        $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function(res, sts, xhr) {
-          if(sts === 'success' || sts === 'notmodified') { $balloon.data('ajaxDisabled', true); }
-          if(options.ajaxContentsMaxAge >= 0) {
-            setTimeout(function() { $balloon.data('ajaxDisabled', false); }, options.ajaxContentsMaxAge);
-          }
-          if(options.ajaxComplete) { options.ajaxComplete(res, sts, xhr); }
-          makeupBalloon($target, $balloon, options);
-        });
+        clearTimeout($balloon.data('ajaxDelay'));
+        $balloon.data('ajaxDelay',
+          setTimeout(function() {
+            $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function(res, sts, xhr) {
+              if(sts !== 'success' && sts !== 'notmodified') { return; }
+              $balloon.data('ajaxDisabled', true);
+              if(options.ajaxContentsMaxAge >= 0) {
+                setTimeout(function() { $balloon.data('ajaxDisabled', false); }, options.ajaxContentsMaxAge);
+              }
+              if(options.ajaxComplete) { options.ajaxComplete(res, sts, xhr); }
+              makeupBalloon($target, $balloon, options);
+            });
+          }, options.ajaxDelay)
+        );
       }
       if(isNew) {
         $balloon
@@ -274,9 +280,10 @@
     const options = this.data('options');
     if(!this.data('balloon')) { return this; }
     return this.each(function() {
-      const $target = $(this);
+      const $target = $(this), $balloon = $target.data('balloon');
       clearTimeout($target.data('delay'));
       clearTimeout($target.data('minLifetime'));
+      clearTimeout($balloon.data('ajaxDelay'));
       $target.data('minLifetime', setTimeout(function() {
         const $balloon = $target.data('balloon');
         if(options.hideAnimation) {
@@ -306,10 +313,10 @@
 
   $.balloon = {
     defaults: {
-      contents: null, url: null, ajaxComplete: null, ajaxContentsMaxAge: -1,
-      html: false, classname: null,
-      position: 'top', offsetX: 0, offsetY: 0, tipSize: 8, tipPosition: 2,
+      contents: null, html: false, classname: null,
+      url: null, ajaxComplete: null, ajaxDelay: 500, ajaxContentsMaxAge: -1,
       delay: 0, minLifetime: 200, maxLifetime: 0,
+      position: 'top', offsetX: 0, offsetY: 0, tipSize: 8, tipPosition: 2,
       showDuration: 100, showAnimation: null,
       hideDuration:  80, hideAnimation: function(d, c) { this.fadeOut(d, c); },
       showComplete: null, hideComplete: null,
