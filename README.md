@@ -32,6 +32,9 @@ Distinct features
 + Fine-tunable position, animations and some effects.
 + Advanced methods for power user.
 
+## Support
+Chrome 49+, Firefox 36+, IE11+, IE Edge, Safari 9.1+, Opera 28+, Android Browser 50+
+
 ## Links
 Detail explanation [here](//urin.github.io/posts/2014/jquery-balloon-js/) (in Japanese).
 
