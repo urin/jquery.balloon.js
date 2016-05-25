@@ -6,7 +6,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (https://urin.github.io)
- * @version: 1.0.0 - 2016/05/24
+ * @version: 1.0.0 - 2016/05/25
 **/
 (function($) {
   'use strict';
@@ -205,7 +205,7 @@
       $balloon = $target.data('balloon') || $('<div>');
       if(!isNew && $balloon.data('active')) { return; }
       $balloon.data('active', true);
-      clearTimeout($target.data('minLifetime'));
+      clearTimeout($balloon.data('minLifetime'));
       const contents = $.isFunction(options.contents)
         ? options.contents.apply(this)
         : (options.contents || (options.contents = $target.attr('title') || $target.attr('alt')));
@@ -251,7 +251,7 @@
       } else {
         makeupBalloon($target, $balloon, options);
       }
-      $target.data('delay', setTimeout(function() {
+      $balloon.data('delay', setTimeout(function() {
         if(options.showAnimation) {
           options.showAnimation.apply(
             $balloon.stop(true, true), [
@@ -267,8 +267,8 @@
           });
         }
         if(options.maxLifetime) {
-          clearTimeout($target.data('maxLifetime'));
-          $target.data('maxLifetime',
+          clearTimeout($balloon.data('maxLifetime'));
+          $balloon.data('maxLifetime',
             setTimeout(function() { $target.hideBalloon(); }, options.maxLifetime)
           );
         }
@@ -281,11 +281,10 @@
     if(!this.data('balloon')) { return this; }
     return this.each(function() {
       const $target = $(this), $balloon = $target.data('balloon');
-      clearTimeout($target.data('delay'));
-      clearTimeout($target.data('minLifetime'));
+      clearTimeout($balloon.data('delay'));
+      clearTimeout($balloon.data('minLifetime'));
       clearTimeout($balloon.data('ajaxDelay'));
-      $target.data('minLifetime', setTimeout(function() {
-        const $balloon = $target.data('balloon');
+      $balloon.data('minLifetime', setTimeout(function() {
         if(options.hideAnimation) {
           options.hideAnimation.apply(
             $balloon.stop(true, true),
