@@ -6,7 +6,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (https://urin.github.io)
- * @version: 1.0.1 - 2016/05/25
+ * @version: 1.0.2 - 2016/05/26
 **/
 (function($) {
   'use strict';
@@ -223,15 +223,18 @@
           clearTimeout($balloon.data('ajaxDelay'));
           $balloon.data('ajaxDelay',
             setTimeout(function() {
-              $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function(res, sts, xhr) {
-                if(sts !== 'success' && sts !== 'notmodified') { return; }
-                $balloon.data('ajaxDisabled', true);
-                if(options.ajaxContentsMaxAge >= 0) {
-                  setTimeout(function() { $balloon.data('ajaxDisabled', false); }, options.ajaxContentsMaxAge);
+              $balloon.load(
+                $.isFunction(options.url) ? options.url.apply($target.get(0)) : options.url,
+                function(res, sts, xhr) {
+                  if(sts !== 'success' && sts !== 'notmodified') { return; }
+                  $balloon.data('ajaxDisabled', true);
+                  if(options.ajaxContentsMaxAge >= 0) {
+                    setTimeout(function() { $balloon.data('ajaxDisabled', false); }, options.ajaxContentsMaxAge);
+                  }
+                  if(options.ajaxComplete) { options.ajaxComplete(res, sts, xhr); }
+                  makeupBalloon($target, $balloon, options);
                 }
-                if(options.ajaxComplete) { options.ajaxComplete(res, sts, xhr); }
-                makeupBalloon($target, $balloon, options);
-              });
+              );
             }, options.ajaxDelay)
           );
         }
