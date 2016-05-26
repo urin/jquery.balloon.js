@@ -329,11 +329,12 @@
         fontSize       : '.7rem',
         minWidth       : '.7rem',
         padding        : '.2rem .5rem',
-        border         : 'solid 1px rgba(212, 212, 212, .4)',
+        border         : '1px solid rgba(212, 212, 212, .4)',
         borderRadius   : '3px',
         boxShadow      : '2px 2px 4px #555',
         color          : '#eee',
-        backgroundColor: 'rgba(0, 0, 0, .8)',
+        backgroundColor: '#111',
+        opacity        : 0.85,
         zIndex         : '32767',
         textAlign      : 'left'
       }
