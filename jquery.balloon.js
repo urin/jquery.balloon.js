@@ -6,10 +6,9 @@
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (https://urin.github.io)
- * @version: 1.0.2 - 2016/05/26
+ * @version: 1.0.3 - 2016/07/02
 **/
 (function($) {
-  'use strict';
   //-----------------------------------------------------------------------------
   // Private
   //-----------------------------------------------------------------------------
