@@ -36,9 +36,9 @@ Distinct features
 Chrome 49+, Firefox 36+, IE11+, IE Edge, Safari 9.1+, Opera 28+, Android Browser 50+
 
 ## Links
-Detail explanation [here](//urin.github.io/posts/2014/jquery-balloon-js/) (in Japanese).
+Detail explanation [here](//urin.github.io/posts/2014/jquery-balloon-js) (in Japanese).
 
-[jquery.balloon.js - URIN HACK](//urin.github.io/posts/2014/jquery-balloon-js/)
+[jquery.balloon.js - URIN HACK](//urin.github.io/posts/2014/jquery-balloon-js)
 
 Copyright
 ------------------------
