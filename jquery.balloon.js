@@ -5,7 +5,7 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
  * @author: Hayato Takenaka (https://urin.github.io)
- * @version: 1.1.0 - 2017/04/30
+ * @version: 1.1.1 - 2017/04/30
 **/
 (function($) {
   //-----------------------------------------------------------------------------
