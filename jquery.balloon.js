@@ -135,24 +135,33 @@
         m = null;
       }
       if(m) {
-        balloon['set' + m.camel.pos.p1]
-          (balloon[m.pos.p1] + ((m.isTopLeft) ? 1 : -1) * (options.tipSize - balloon['border' + m.camel.pos.o]));
-        makeTip(balloon, outerTip, m, options.tipSize, $balloon.css('border-' + m.pos.o + '-color'), options.tipPosition);
-        makeTip(balloon, innerTip, m, options.tipSize - 2 * balloon['border' + m.camel.pos.o], $balloon.css('background-color'), options.tipPosition);
+        balloon['set' + m.camel.pos.p1](
+          balloon[m.pos.p1] + ((m.isTopLeft) ? 1 : -1) * (options.tipSize - balloon['border' + m.camel.pos.o])
+        );
+        makeTip(
+          balloon, outerTip, m, options.tipSize,
+          $balloon.css('border-' + m.pos.o + '-color'),
+          options.tipPosition
+        );
+        makeTip(
+          balloon, innerTip, m, options.tipSize - 2 * balloon['border' + m.camel.pos.o],
+          $balloon.css('background-color'),
+          options.tipPosition
+        );
         $balloon.data('outerTip', outerTip.$).data('innerTip', innerTip.$);
       } else {
         $.each([outerTip.$, innerTip.$], function() { this.remove(); });
       }
     }
     // Make up balloon tip.
-    function makeTip(balloon, tip, m, tipSize, color) {
+    function makeTip(balloon, tip, m, tipSize, color, pos) {
       const len = Math.round(tipSize / 1.7320508);
       tip.inactive()
         ['setBorder' + m.camel.pos.f](tipSize)
         ['setBorder' + m.camel.pos.c1](len)
         ['setBorder' + m.camel.pos.c2](len)
         ['set' + m.camel.pos.p1]((m.isTopLeft) ? -tipSize : balloon.inner[m.size.p])
-        ['set' + m.camel.pos.c1](balloon.inner[m.size.c] / options.tipPosition - len)
+        ['set' + m.camel.pos.c1](balloon.inner[m.size.c] / pos - len)
         .active()
         .$.css('border-' + m.pos.f + '-color', color);
     }
