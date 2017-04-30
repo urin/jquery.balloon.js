@@ -2,11 +2,10 @@
  * Hover balloon on elements without css and images.
  *
  * Copyright (c) 2011 Hayato Takenaka
- * Dual licensed under the MIT and GPL licenses:
+ * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
  * @author: Hayato Takenaka (https://urin.github.io)
- * @version: 1.0.3 - 2016/07/02
+ * @version: 1.1.0 - 2017/04/30
 **/
 (function($) {
   //-----------------------------------------------------------------------------
