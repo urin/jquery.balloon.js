@@ -165,6 +165,28 @@
     return !(b && (b === e.relatedTarget || $.contains(b, e.relatedTarget)));
   }
 
+  // Assign plain text or HTML to the balloon's body
+  function assignContents($balloon, options, contents) {
+    if(options.html) {
+      $balloon.empty().append(contents);
+    } else {
+      $balloon.text(contents);
+    }
+  }
+
+  // Actions common to the `options.url` and `options.ajax`
+  // callbacks on successful completion of the AJAX request
+  function onAjaxContents($target, $balloon, options) {
+    $balloon.data('ajaxDisabled', true);
+    if(options.ajaxContentsMaxAge >= 0) {
+      setTimeout(
+        function() { $balloon.data('ajaxDisabled', false); },
+        options.ajaxContentsMaxAge
+      );
+    }
+    makeupBalloon($target, $balloon, options);
+  }
+
   //-----------------------------------------------------------------------------
   // Public
   //-----------------------------------------------------------------------------
@@ -191,58 +213,64 @@
   };
 
   $.fn.showBalloon = function(options) {
-    var $target, $balloon;
     if(options || !this.data('options')) {
       if($.balloon.defaults.css === null) { $.balloon.defaults.css = {}; }
       this.data('options', $.extend(true, {}, $.balloon.defaults, options || {}));
     }
     options = this.data('options');
     return this.each(function() {
-      var isNew;
-      $target = $(this);
-      isNew = !$target.data('balloon');
-      $balloon = $target.data('balloon') || $('<div>');
+      var target = this, $target = $(target);
+      var isNew = !$target.data('balloon');
+      var $balloon = $target.data('balloon') || $('<div>');
       if(!isNew && $balloon.data('active')) { return; }
       $balloon.data('active', true);
       clearTimeout($balloon.data('minLifetime'));
-      const contents = $.isFunction(options.contents) ? options.contents.apply(this)
+      const contents = $.isFunction(options.contents) ? options.contents.call(target)
         : (options.contents || $target.attr('title') || $target.attr('alt'));
       $target.removeAttr('title');
-      if(!options.url && contents === '' || contents == null) { return; }
+      var ajax = $.isFunction(options.ajax) || options.url;
+      if(!ajax && contents === '' || contents == null) { return; }
       if(!$.isFunction(options.contents)) { options.contents = contents; }
-      if(options.url) {
-        if(!$balloon.data('ajaxDisabled')) {
-          if(contents !== '' && contents != null) {
-            if(options.html) {
-              $balloon.empty().append(contents);
-            } else {
-              $balloon.text(contents);
-            }
-          }
-          clearTimeout($balloon.data('ajaxDelay'));
-          $balloon.data('ajaxDelay',
-            setTimeout(function() {
-              $balloon.load(
-                $.isFunction(options.url) ? options.url.apply($target.get(0)) : options.url,
-                function(res, sts, xhr) {
-                  if(sts !== 'success' && sts !== 'notmodified') { return; }
-                  $balloon.data('ajaxDisabled', true);
-                  if(options.ajaxContentsMaxAge >= 0) {
-                    setTimeout(function() { $balloon.data('ajaxDisabled', false); }, options.ajaxContentsMaxAge);
-                  }
-                  if(options.ajaxComplete) { options.ajaxComplete(res, sts, xhr); }
-                  makeupBalloon($target, $balloon, options);
+      if(!ajax) {
+        assignContents($balloon, options, contents);
+      } else if(!$balloon.data('ajaxDisabled')) {
+        if(contents !== '' && contents != null) {
+          assignContents($balloon, options, contents)
+        }
+        clearTimeout($balloon.data('ajaxDelay'));
+        if(options.url) {
+          ajax = function() {
+            $balloon.load(
+              $.isFunction(options.url) ? options.url.call(target) : options.url,
+              function(res, sts, xhr) {
+                if(options.ajaxComplete) { options.ajaxComplete.call(target, res, sts, xhr); }
+                if(sts === 'success' || sts === 'notmodified') {
+                  onAjaxContents($target, $balloon, options);
                 }
-              );
-            }, options.ajaxDelay)
-          );
-        }
-      } else {
-        if(options.html) {
-          $balloon.empty().append(contents);
+              }
+            );
+          }
         } else {
-          $balloon.text(contents);
+          ajax = function() {
+            var called = false;
+            function done(error, contents) {
+              if(!called) {
+                called = true;
+                if(error) { return; }
+                assignContents($balloon, options, contents);
+                onAjaxContents($target, $balloon, options);
+              }
+            }
+            const promise = options.ajax.call(target, done);
+            if(promise && $.isFunction(promise.then)) {
+              promise.then(
+                function (contents) { done(null, contents); },
+                function (error) { done(error); }
+              );
+            }
+          };
         }
+        $balloon.data('ajaxDelay', setTimeout(ajax, options.ajaxDelay));
       }
       if(isNew) {
         $balloon
@@ -318,7 +346,7 @@
   $.balloon = {
     defaults: {
       contents: null, html: false, classname: null,
-      url: null, ajaxComplete: null, ajaxDelay: 500, ajaxContentsMaxAge: -1,
+      url: null, ajax: null, ajaxComplete: null, ajaxDelay: 500, ajaxContentsMaxAge: -1,
       delay: 0, minLifetime: 200, maxLifetime: 0,
       position: 'top', offsetX: 0, offsetY: 0, tipSize: 8, tipPosition: 2,
       showDuration: 100, showAnimation: null,
