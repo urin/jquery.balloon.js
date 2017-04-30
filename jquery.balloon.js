@@ -5,7 +5,7 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
  * @author: Hayato Takenaka (https://urin.github.io)
- * @version: 1.1.1 - 2017/04/30
+ * @version: 1.1.2 - 2017/04/30
 **/
 (function($) {
   //-----------------------------------------------------------------------------
@@ -223,6 +223,7 @@
   };
 
   $.fn.showBalloon = function(options) {
+    var optionsOld = this.data('options') ? this.data('options') : options || {};
     if(options || !this.data('options')) {
       if($.balloon.defaults.css === null) { $.balloon.defaults.css = {}; }
       this.data('options', $.extend(true, {}, $.balloon.defaults, options || {}));
@@ -282,12 +283,12 @@
         }
         $balloon.data('ajaxDelay', setTimeout(ajax, options.ajaxDelay));
       }
+
+      $balloon.css(options.css || {})
+        .removeClass(optionsOld.classname)
+        .addClass(options.classname);
       if(isNew) {
-        $balloon
-          .addClass(options.classname)
-          .css(options.css || {})
-          .css({ visibility: 'hidden', position: 'absolute' })
-          .appendTo('body');
+        $balloon.css({ visibility: 'hidden', position: 'absolute' }).appendTo('body');
         $target.data('balloon', $balloon);
         makeupBalloon($target, $balloon, options);
         $balloon.hide().css('visibility', 'visible');
